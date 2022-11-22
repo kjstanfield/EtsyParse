@@ -1,5 +1,8 @@
+body {background-color: DimGray;}
+
+
 #wrapper {
-    width: 85%;
+    width: 75%;
     margin: 1rem auto;
 }
 

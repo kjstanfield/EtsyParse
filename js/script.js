@@ -10,15 +10,17 @@ $(document).ready(function () {
     Papa.parse(file, {
       header: true,
       complete: function (result) {
-        console.log(result.data);
-
         result.data.forEach((item, index) => {
           // Check Decals that haven't shipped yet
           if (
             item["Date Shipped"] == "" &&
             item["Item Name"].toLowerCase().includes("decal")
           ) {
-            decal_checker(item["Item Name"], item["Variations"]);
+            decal_checker(
+              item["Item Name"],
+              item["Variations"],
+              item["Listing ID"]
+            );
           }
 
           // Check Bookmarks that haven't shipped yet
@@ -26,7 +28,11 @@ $(document).ready(function () {
             item["Date Shipped"] == "" &&
             item["Item Name"].toLowerCase().includes("bookmark")
           ) {
-            bookmark_checker(item["Item Name"], item["Variations"]);
+            bookmark_checker(
+              item["Item Name"],
+              item["Variations"],
+              item["Listing ID"]
+            );
           }
 
           // Check Cups that haven't shipped yet
@@ -34,7 +40,11 @@ $(document).ready(function () {
             item["Date Shipped"] == "" &&
             item["Item Name"].toLowerCase().includes("glass")
           ) {
-            cup_checker(item["Item Name"], item["Variations"]);
+            cup_checker(
+              item["Item Name"],
+              item["Variations"],
+              item["Listing ID"]
+            );
           }
         });
         console.log("Decals", decals);
@@ -45,9 +55,10 @@ $(document).ready(function () {
           let dname = dsplit[0];
           let dcolor = dsplit[1];
           let dsize = dsplit[2];
+          let ditem = dsplit[3];
           $("#decals").append(`
           <tr>
-            <td scope="row">${dname}</td>
+            <td scope="row"><a href="https://www.etsy.com/listing/${ditem}">${dname}</a></td>
             <td>${dcolor}</td>
             <td>${dsize}</td>
             <td><span class="tally">${value}</span></td>
@@ -64,9 +75,10 @@ $(document).ready(function () {
           let bname = bsplit[0];
           let bcolor = bsplit[1];
           let bcharm = bsplit[2];
+          let bitem = bsplit[3];
           $("#bookmarks").append(`
           <tr>
-            <td scope="row">${bname}</td>
+            <td scope="row"><a href="https://www.etsy.com/listing/${bitem}">${bname}</td>
             <td>${bcolor}</td>
             <td>${bcharm}</td>
             <td><span class="tally">${value}</span></td>
@@ -82,9 +94,10 @@ $(document).ready(function () {
           let csplit = key.split("_");
           let cname = csplit[0];
           let ccolor = csplit[1];
+          let citem = csplit[2];
           $("#cups").append(`
           <tr>
-            <td scope="row">${cname}</td>
+            <td scope="row"><a href="https://www.etsy.com/listing/${citem}">${cname}</td>
             <td>${ccolor}</td>
             <td><span class="tally">${value}</span></td>
             <td><input class="form-check-input" type="checkbox"></td>
@@ -96,10 +109,11 @@ $(document).ready(function () {
   });
 });
 
-function decal_checker(name, variation) {
+function decal_checker(name, variation, id) {
   let item_title = name.split("|", 1)[0].trim();
   let item_color = "";
   let item_size = "";
+  let item_listing = id;
 
   if (variation.indexOf("Style") > 1) {
     item_color = variation.slice(
@@ -115,7 +129,7 @@ function decal_checker(name, variation) {
     item_size = "X";
   }
 
-  let complete_item = `${item_title}_${item_color}_${item_size}`;
+  let complete_item = `${item_title}_${item_color}_${item_size}_${item_listing}`;
   if (complete_item in decals) {
     decals[complete_item] += 1;
   } else {
@@ -123,10 +137,11 @@ function decal_checker(name, variation) {
   }
 }
 
-function bookmark_checker(name, variation) {
+function bookmark_checker(name, variation, id) {
   let item_title = name.split("|", 1)[0].trim();
   let item_color = "";
   let item_charm = "";
+  let item_listing = id;
 
   if (variation.indexOf("Charm") > 1) {
     item_color = variation.slice(
@@ -139,7 +154,7 @@ function bookmark_checker(name, variation) {
     item_charm = "X";
   }
 
-  let complete_item = `${item_title}_${item_color}_${item_charm}`;
+  let complete_item = `${item_title}_${item_color}_${item_charm}_${item_listing}`;
   if (complete_item in bookmarks) {
     bookmarks[complete_item] += 1;
   } else {
@@ -147,9 +162,10 @@ function bookmark_checker(name, variation) {
   }
 }
 
-function cup_checker(name, variation) {
+function cup_checker(name, variation, id) {
   let item_title = name.split("|", 1)[0].trim();
   let item_color = "";
+  let item_listing = id;
 
   if (variation.indexOf(",Options") > 1) {
     item_color = variation.slice(
@@ -160,7 +176,7 @@ function cup_checker(name, variation) {
     item_color = variation.slice(variation.toLowerCase().indexOf("Color:") + 6);
   }
 
-  let complete_item = `${item_title}_${item_color}`;
+  let complete_item = `${item_title}_${item_color}_${item_listing}`;
   if (complete_item in cups) {
     cups[complete_item] += 1;
   } else {
