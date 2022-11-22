@@ -27,16 +27,6 @@
           />
         </form>
       </div>
-      <!-- <div id="body">
-        <h4>Decals:</h4>
-        <div id="decals" class="section"></div>
-        <h4>Bookmarks:</h4>
-        <div id="bookmarks" class="section"></div>
-        <h4>Cups:</h4>
-        <div id="cups" class="section"></div>
-      </div> -->
-
-
       <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
@@ -45,7 +35,21 @@
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body" id="decals"></div>
+            <div class="accordion-body">
+              <table class="table table-striped table-hover">
+                <tbody id="decals">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Color</th>
+                      <th scope="col">Size</th>
+                      <th scope="col">#</th>
+                      <th scope="col">✓</th>
+                    </tr>
+                  </thead>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="accordion-item">
@@ -55,7 +59,21 @@
             </button>
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body" id="bookmarks"></div>
+            <div class="accordion-body">
+              <table class="table table-striped table-hover">
+                <tbody id="bookmarks">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Color</th>
+                      <th scope="col">Charm</th>
+                      <th scope="col">#</th>
+                      <th scope="col">✓</th>
+                    </tr>
+                  </thead>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="accordion-item">
@@ -65,11 +83,22 @@
             </button>
           </h2>
           <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body" id="cups"></div>
+            <div class="accordion-body">
+              <table class="table table-striped table-hover">
+                <tbody id="cups">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Color</th>
+                      <th scope="col">#</th>
+                      <th scope="col">✓</th>
+                    </tr>
+                  </thead>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-
-
   </body>
 </html>

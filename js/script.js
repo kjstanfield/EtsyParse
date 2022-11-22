@@ -46,12 +46,18 @@ $(document).ready(function () {
           let dcolor = dsplit[1];
           let dsize = dsplit[2];
           $("#decals").append(`
-            <div>${dname} - ${dcolor} - ${dsize} -- <span class="tally">${value}</span></div>
-            `);
+          <tr>
+            <td scope="row">${dname}</td>
+            <td>${dcolor}</td>
+            <td>${dsize}</td>
+            <td><span class="tally">${value}</span></td>
+            <td><input class="form-check-input" type="checkbox"></td>
+          </tr>
+          `);
         });
 
         console.log("Bookmarks", bookmarks);
-        //Render Decals
+        //Render Bookmarks
         Object.entries(sort_object(bookmarks)).forEach((bookmark) => {
           const [key, value] = bookmark;
           let bsplit = key.split("_");
@@ -59,20 +65,31 @@ $(document).ready(function () {
           let bcolor = bsplit[1];
           let bcharm = bsplit[2];
           $("#bookmarks").append(`
-              <div>${bname} - ${bcolor} - ${bcharm} -- <span class="tally">${value}</span></div>
-              `);
+          <tr>
+            <td scope="row">${bname}</td>
+            <td>${bcolor}</td>
+            <td>${bcharm}</td>
+            <td><span class="tally">${value}</span></td>
+            <td><input class="form-check-input" type="checkbox"></td>
+          </tr>
+          `);
         });
 
         console.log("Cups", cups);
-        //Render Decals
+        //Render Cups
         Object.entries(sort_object(cups)).forEach((cup) => {
           const [key, value] = cup;
           let csplit = key.split("_");
           let cname = csplit[0];
           let ccolor = csplit[1];
           $("#cups").append(`
-                <div><input class="form-check-input" type="checkbox"> ${cname} - ${ccolor} -- <span class="tally">${value}</span></div> 
-                `);
+          <tr>
+            <td scope="row">${cname}</td>
+            <td>${ccolor}</td>
+            <td><span class="tally">${value}</span></td>
+            <td><input class="form-check-input" type="checkbox"></td>
+          </tr>
+          `);
         });
       },
     });
