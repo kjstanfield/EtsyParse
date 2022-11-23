@@ -2,6 +2,10 @@ let decals = {};
 let bookmarks = {};
 let cups = {};
 
+let csv_array = [];
+
+let csvContent = "data:text/csv;charset=utf-8,";
+
 $(document).ready(function () {
   $("#file-input").change(function () {
     // Clear Console
@@ -65,6 +69,10 @@ $(document).ready(function () {
             <td><input class="form-check-input" type="checkbox"></td>
           </tr>
           `);
+
+          csv_array.push(
+            `${dname.replace(",", "")}, ${dcolor}, ${dsize}, ${value}`
+          );
         });
 
         console.log("Bookmarks", bookmarks);
@@ -85,6 +93,10 @@ $(document).ready(function () {
             <td><input class="form-check-input" type="checkbox"></td>
           </tr>
           `);
+
+          csv_array.push(
+            `${bname.replace(",", "")}, ${bcolor}, ${bcharm}, ${value}`
+          );
         });
 
         console.log("Cups", cups);
@@ -103,9 +115,25 @@ $(document).ready(function () {
             <td><input class="form-check-input" type="checkbox"></td>
           </tr>
           `);
+
+          csv_array.push(`${cname.replace(",", "")}, ${ccolor}, -, ${value}`);
         });
       },
     });
+  });
+
+  $("#export-button").click(function () {
+    console.log("CLICK");
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+
+    csv_array.forEach(function (rowArray) {
+      csvContent += rowArray + "\r\n";
+    });
+
+    let encodedUri = encodeURI(csvContent);
+    console.log(csvContent);
+    window.open(encodedUri);
   });
 });
 
@@ -205,7 +233,6 @@ function sortTable(n) {
     dir,
     switchcount = 0;
   table = document.getElementById("decalTable");
-  console.log(table);
   switching = true;
   // Set the sorting direction to ascending:
   dir = "asc";
